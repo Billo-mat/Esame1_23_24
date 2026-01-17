@@ -1,0 +1,16 @@
+def triplet_in_string(string: str, triplet:str) -> int:
+    """
+    Calcola quante volte una tripletta o la sua inversa si 
+    ripete all'interno di una data stringa
+    >>> triplet_in_string('CAATAATCC', 'AAT')
+    3
+    >>> triplet_in_string('AAAAAAA', 'AAA')
+    5
+    """
+    reversed_triplet = triplet[::-1]
+    count = 0
+    for i in range (0, len(string)-2):
+        a = string[i:i+3]
+        if string[i:i+3] == triplet or string[i:i+3] == reversed_triplet:
+            count += 1
+    return count
