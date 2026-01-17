@@ -1,0 +1,20 @@
+# ### Exercise 1 (max 2 points)
+# Leggere il genoma in una variabile di tipo str.
+
+genome = ""
+filename = "nc_051526_1.fasta"
+
+try:
+    with open(filename, "r") as f:
+        for line in f:
+            # Rimuoviamo eventuali spazi bianchi all'inizio e alla fine (incluso \n)
+            line = line.strip()
+            
+            # Saltiamo la riga del commento (header) che inizia con '>'
+            if line.startswith(">"):
+                continue
+            
+            # Aggiungiamo il contenuto alla stringa del genoma
+            genome += line
+
+    print(f"Tipo della variabile: {type(genome)}")
