@@ -4,9 +4,9 @@
 genome = ""
 filename = "nc_051526_1.fasta"
 
-try:
-    with open(filename, "r") as f:
-        for line in f:
+
+with open(filename, "r") as f:
+    for line in f:
             # Rimuoviamo eventuali spazi bianchi all'inizio e alla fine (incluso \n)
             line = line.strip()
             
