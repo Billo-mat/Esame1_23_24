@@ -1,0 +1,27 @@
+# ### Exercise 2 (max 5 points)
+import itertools
+
+# 1. Otteniamo le lettere uniche presenti nel genoma (es: {'A', 'C', 'G', 'T'})
+letters = sorted(list(set(genome)))
+
+# 2. Generiamo tutte le possibili triplette (4^3 = 64 combinazioni se le lettere sono 4)
+all_triplets = [''.join(t) for t in itertools.product(letters, repeat=3)] #aggiunge tutte le tuple t generate dal prodotto cartesiano intertools
+
+# 3. Filtriamo per considerare ogni tripletta e il suo reverse solo una volta
+potential_triplets = set()
+
+for triplet in all_triplets:
+    reverse_triplet = triplet[::-1] #parte dalla fine e va all'indietro
+    
+    # Se il reverse è già nel set, non aggiungiamo questa
+    # Se la tripletta è uguale al suo reverse (es: 'ATA'), la aggiungiamo comunque
+    if reverse_triplet not in potential_triplets:
+        potential_triplets.add(triplet)
+
+# Trasformiamo in lista per comodità o lasciamo come set
+potential_triplets = list(potential_triplets)
+
+# Verifica
+print(f"Lettere trovate: {letters}")
+print(f"Numero di triplette potenziali (senza duplicati speculari): {len(potential_triplets)}")
+print(f"Esempi: {potential_triplets[:10]}")
