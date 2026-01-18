@@ -1,0 +1,22 @@
+# ### Exercise 6 (max 3 points)
+
+# 1. Definiamo la lista dei bin come richiesto: [-3, -2.5, ..., 2.5, 3]
+# Possiamo crearla manualmente o con np.arange
+bins_list = np.arange(-3,3.5,.5)
+
+# 2. Creiamo l'istogramma
+plt.hist(df['std_num'], bins=bins_list, color='skyblue', edgecolor='black', alpha=0.7)
+
+# 3. Aggiungiamo la linea verticale rossa tratteggiata per la media
+# La media di una colonna standardizzata è teoricamente 0
+mean_std = df['std_num'].mean()
+plt.axvline(mean_std, color='red', linestyle='dashed', linewidth=2, label=f'Mean: {mean_std:.2f}')
+
+# 4. Aggiungiamo titoli e legende
+plt.title('Distribuzione delle Occorrenze Standardizzate')
+plt.xlabel('Valori Standardizzati (std_num)')
+plt.ylabel('Frequenza (Numero di triplette)')
+plt.legend()
+
+# 5. Salviamo l'immagine
+plt.show()
