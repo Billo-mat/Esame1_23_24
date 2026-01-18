@@ -1,0 +1,4 @@
+
+mean = df['occurrences'].mean()
+std_dev = df['occurencs'].std()
+df['std_num'] = (df['occurences'] - mean) / std_dev
