@@ -1,1 +1,27 @@
+# 1. Creiamo un dizionario per raccogliere i conteggi
+# Usiamo la funzione definita nell'Esercizio 3 per ogni tripletta potenziale
+occurences_data = {}
 
+for t in potential_triplets:
+    # Chiamiamo la tua funzione dell'esercizio 3
+    count = triplet_in_string(genome, t)
+    occurences_data[t] = count
+
+# 2. Creiamo il DataFrame usando le triplette come indice
+# Il dizionario passerà le triplette alle righe e i conteggi alla colonna 'occurrences'
+df = pd.DataFrame.from_dict(occurences_data, orient='index', columns=['occurrences'])
+
+# 3. Aggiungiamo la colonna 'even' (True se pari, False se dispari)
+# Usiamo l'operatore modulo % per verificare la divisibilità per 2
+df['even'] = df['occurrences'] % 2 == 0
+
+# Rinominiamo l'indice per chiarezza (opzionale ma consigliato)
+df.index.name = 'triplet'
+
+# Verifica i risultati
+print(df)
+
+# Controllo specifico richiesto dal testo:
+if 'AGG' in df.index:
+    print(f"\nOccorrenze di 'AGG': {df.loc['AGG', 'occurrences']}")      
+    
