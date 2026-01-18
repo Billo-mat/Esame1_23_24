@@ -1,0 +1,33 @@
+import pymc as pm
+import arviz as az
+
+# ### Exercise 8 (max 4 points)
+
+# 1. Prepariamo i dati (estratti nell'esercizio precedente)
+data_even = df.loc[df['even'] == True, 'std_num'].values
+data_odd = df.loc[df['even'] == False, 'std_num'].values
+
+# 2. Definiamo il modello PyMC
+with pm.Model() as biological_model:
+    # --- PRIORS (Le nostre stime a priori) ---
+    # Media: normale con media 0 e deviazione standard 2
+    mu = pm.Normal("mu", mu=0, sigma=2)
+    
+    # Deviazione standard: esponenziale con lambda = 1
+    # Nota: in PyMC Exponential(lam) usa lam=1/scale. Quindi lam=1 va bene.
+    sigma = pm.Exponential("sigma", lam=1)
+    
+    # --- LIKELIHOOD (La verosimiglianza) ---
+    # Assumiamo che i dati osservati (sia pari che dispari) seguano 
+    # una distribuzione Normale con i parametri mu e sigma definiti sopra
+    # Uniamo i dati o definiamo osservazioni separate
+    obs_even = pm.Normal("obs_even", mu=mu, sigma=sigma, observed=data_even)
+    obs_odd = pm.Normal("obs_odd", mu=mu, sigma=sigma, observed=data_odd)
+    
+    # --- SAMPLING ---
+    # Estraiamo i campioni dalla distribuzione a posteriori
+    trace = pm.sample(1000, return_inferencedata=True, progressbar=False)
+
+# 3. Plot delle distribuzioni a posteriori con ArviZ
+az.plot_posterior(trace)
+plt.show()
